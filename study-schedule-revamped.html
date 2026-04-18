@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CA Foundation – Study Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --surface2: #f4f2ee;
+    --border: #e8e4dc;
+    --border2: #d4cfc5;
+    --text: #1a1714;
+    --muted: #8a8278;
+    --muted2: #b5b0a6;
+
+    --law: #c0392b;
+    --law-light: #fdf0ef;
+    --law-mid: #f5c6c2;
+    --qa: #b7770d;
+    --qa-light: #fdf8ed;
+    --qa-mid: #f5dfa0;
+    --eco: #1a7a4a;
+    --eco-light: #edf7f2;
+    --eco-mid: #a8dfc2;
+    --acc: #1a5fa0;
+    --acc-light: #eef4fb;
+    --acc-mid: #a8c8f0;
+    --rev: #7b3fa0;
+    --rev-light: #f6f0fb;
+    --rev-mid: #d4b0f0;
+
+    --accent: #c0392b;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 4px 12px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.04);
+    --shadow-lg: 0 10px 32px rgba(0,0,0,0.09), 0 4px 8px rgba(0,0,0,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 100px;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    padding: 64px 56px 48px;
+    border-bottom: 2px solid var(--border);
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(192,57,43,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 2px;
+    background: var(--accent);
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 900;
+    line-height: 0.95;
+    margin-bottom: 20px;
+    color: var(--text);
+    letter-spacing: -1px;
+  }
+  .header h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .header-sub {
+    font-size: 18px;
+    color: var(--muted);
+    font-weight: 400;
+    letter-spacing: 0.2px;
+  }
+
+  /* ─── LEGEND ─── */
+  .legend {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 20px 56px;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    background: var(--bg);
+  }
+  .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+  /* ─── STATS BAR ─── */
+  .stats-bar {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .stats-bar::-webkit-scrollbar { display: none; }
+  .stat {
+    padding: 28px 40px;
+    border-right: 1.5px solid var(--border);
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .stat:first-child { padding-left: 56px; }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ─── PROGRESS ─── */
+  .progress-section {
+    padding: 24px 56px;
+    background: var(--surface);
+    border-bottom: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .progress-label {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .progress-track {
+    flex: 1;
+    min-width: 200px;
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 100px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--law), var(--qa), var(--eco), var(--acc));
+    border-radius: 100px;
+    transition: width 0.8s ease;
+  }
+  .progress-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ─── LAYOUT ─── */
+  .main { display: grid; grid-template-columns: 280px 1fr; }
+
+  /* ─── SIDEBAR ─── */
+  .sidebar {
+    border-right: 2px solid var(--border);
+    padding: 32px 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    background: var(--surface);
+  }
+  .sb-section {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    padding: 0 24px;
+    margin: 20px 0 8px;
+    font-weight: 500;
+  }
+  .sb-section:first-child { margin-top: 0; }
+  .sb-day {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 24px 10px 28px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+  .sb-day:hover, .sb-day.active {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: var(--law-light);
+  }
+  .sb-dots { display: flex; gap: 4px; }
+  .sb-dot { width: 7px; height: 7px; border-radius: 2px; }
+
+  /* ─── CONTENT ─── */
+  .content { padding: 48px 56px; }
+
+  .week-block { margin-bottom: 72px; }
+  .week-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+  }
+  .week-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    padding: 4px 12px;
+    background: var(--surface2);
+    border-radius: 100px;
+    border: 1px solid var(--border);
+  }
+  .week-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .days-grid { display: flex; flex-direction: column; gap: 18px; }
+
+  /* ─── DAY CARD ─── */
+  .day-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow-sm);
+  }
+  .day-card:hover {
+    border-color: var(--border2);
+    box-shadow: var(--shadow);
+  }
+  .day-card.done {
+    border-color: var(--eco-mid);
+    background: var(--eco-light);
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 2px solid transparent;
+    transition: background 0.15s;
+  }
+  .day-header:hover { background: var(--surface2); }
+  .day-card.done .day-header { border-bottom-color: var(--eco-mid); }
+
+  .day-date-block {
+    min-width: 68px;
+    text-align: center;
+    padding: 10px 12px;
+    background: var(--surface2);
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+  }
+  .day-date {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+  }
+  .day-month {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .day-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+  .day-sub-name {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+    margin-top: 1px;
+  }
+  .day-chips {
+    display: flex;
+    gap: 6px;
+    margin-left: auto;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .chip {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 100px;
+    border: 1.5px solid;
+  }
+  .chip-law { background: var(--law-light); color: var(--law); border-color: var(--law-mid); }
+  .chip-qa  { background: var(--qa-light);  color: var(--qa);  border-color: var(--qa-mid); }
+  .chip-eco { background: var(--eco-light); color: var(--eco); border-color: var(--eco-mid); }
+  .chip-acc { background: var(--acc-light); color: var(--acc); border-color: var(--acc-mid); }
+  .chip-rev { background: var(--rev-light); color: var(--rev); border-color: var(--rev-mid); }
+
+  .day-toggle-btn {
+    width: 36px; height: 36px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    background: var(--bg);
+  }
+  .day-toggle-btn:hover { border-color: var(--eco); color: var(--eco); }
+  .day-card.done .day-toggle-btn {
+    background: var(--eco);
+    border-color: var(--eco);
+    color: #fff;
+  }
+
+  /* ─── DAY BODY ─── */
+  .day-body { display: none; padding: 28px 28px 24px; }
+  .day-body.open { display: block; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted2);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline { display: flex; flex-direction: column; }
+  .tl-item { display: flex; gap: 0; }
+  .tl-left {
+    width: 72px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 14px;
+  }
+  .tl-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 6px;
+    letter-spacing: 0.3px;
+    font-weight: 500;
+  }
+  .tl-spine {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 16px;
+    flex-shrink: 0;
+  }
+  .tl-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px currentColor;
+  }
+  .tl-line { width: 2px; flex: 1; min-height: 16px; margin-top: 3px; border-radius: 2px; }
+  .tl-item:last-child .tl-line { background: transparent !important; }
+  .tl-right { flex: 1; padding: 0 0 16px 14px; }
+
+  .tl-session {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    border-left-width: 4px;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .tl-session-title {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .tl-session-note {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  .tl-duration {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1.5px solid;
+  }
+
+  .tl-break .tl-session {
+    background: var(--surface2);
+    border-color: var(--border);
+    border-left-color: var(--border2);
+    box-shadow: none;
+  }
+  .tl-break .tl-session-title {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ─── TOPICS ─── */
+  .topics-list {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1.5px solid var(--border);
+  }
+  .topic-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  .topic-item input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--eco);
+    margin-top: 2px;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .topic-item label { cursor: pointer; }
+  .topic-item.checked label {
+    text-decoration: line-through;
+    color: var(--muted2);
+    font-weight: 400;
+  }
+
+  /* ─── FINAL BANNER ─── */
+  .final-banner {
+    margin: 48px 56px 0;
+    padding: 32px 36px;
+    border: 2px solid var(--law-mid);
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--law-light), #fff8f7);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .final-banner-icon { font-size: 44px; line-height: 1; flex-shrink: 0; }
+  .final-banner-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--law);
+  }
+  .final-banner-text p { font-size: 15px; color: var(--muted); font-weight: 500; }
+
+  @media(max-width:768px){
+    .header,.legend,.progress-section,.content,.final-banner{padding-left:20px;padding-right:20px;}
+    .main{grid-template-columns:1fr;}
+    .sidebar{display:none;}
+    .stat:first-child{padding-left:20px;}
+    .header { padding-top: 40px; padding-bottom: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">CA Foundation · April 18 → May 8</div>
+  <h1>Study<br><em>Schedule</em></h1>
+  <div class="header-sub">21 days. Every session timed. No guessing.</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--law)"></div>Business Law</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--qa)"></div>Maths / QA</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--eco)"></div>Economics</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--acc)"></div>Accounts</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--rev)"></div>Revision</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val" style="color:var(--law)">21</div><div class="stat-label">Days</div></div>
+  <div class="stat"><div class="stat-val" style="color:var(--qa)">17</div><div class="stat-label">QA Topics</div></div>
+  <div class="stat"><div class="stat-val" style="color:var(--law)">7</div><div class="stat-label">Law Ch.</div></div>
+  <div class="stat"><div class="stat-val" style="color:var(--eco)">10</div><div class="stat-label">Eco Ch.</div></div>
+  <div class="stat"><div class="stat-val" style="color:var(--acc)">11</div><div class="stat-label">Acc Ch.</div></div>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">Overall Progress</div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  <div class="progress-text" id="progressText">0 of 0 topics checked</div>
+</div>
+
+<div class="main">
+  <nav class="sidebar" id="sidebar"></nav>
+  <div class="content" id="content"></div>
+</div>
+
+<div class="final-banner">
+  <div class="final-banner-icon">🎯</div>
+  <div class="final-banner-text">
+    <h3>May 8 — Last Day</h3>
+    <p>Light revision only. No new topics. Rest by 10 PM.</p>
+  </div>
+</div>
+
+<script>
+const DAYS = [
+{
+  id:'d1',date:'Apr 18',day:'Fri',weekNum:1,weekTitle:'Law Foundation + QA Basics',
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.1 – Indian Regulatory Framework',note:'Orientation read – overview of all major Acts',mins:60},
+    {time:'10:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:15',sub:'law',title:'Ch.2 – Nature of Contract + Offer & Acceptance',note:'Core definitions, communication rules, lapse of offer',mins:90},
+    {time:'11:45',sub:'brk',title:'Break',note:'',mins:30},
+    {time:'12:15',sub:'law',title:'Ch.2 – Competency to Contract',note:'Minor, unsound mind, disqualified persons – case-type questions',mins:60},
+    {time:'13:15',sub:'brk',title:'Lunch',note:'',mins:75},
+    {time:'14:30',sub:'law',title:'Ch.2 – Free Consent',note:'Coercion, Undue Influence, Fraud, Misrepresentation, Mistake – all 5 vitiating factors. Heavy chapter, 90 mins.',mins:90},
+    {time:'16:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + freshen up',note:'',mins:30},
+    {time:'17:00',sub:'law',title:'Ch.2 – Legality of Object & Consideration',note:'Rules of valid consideration, unlawful agreements',mins:75},
+    {time:'18:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:30',sub:'qa', title:'Ch.1 – Ratio, Proportions & Indices',note:'Formulas + 15 problems. Medium difficulty.',mins:75},
+    {time:'19:45',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:30',sub:'qa', title:'Ch.1 – Logarithms',note:'Log rules, change of base, 10 problems',mins:60},
+    {time:'21:30',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Regulatory framework overview','Essentials of a valid contract','Offer – rules & communication','Acceptance – rules & revocation','Competency – who can/cannot contract','Coercion vs Undue Influence','Fraud vs Misrepresentation','Mistake – types','Valid consideration – 6 rules','Unlawful agreements','Ratio & Proportion shortcuts','Indices laws','Log properties & identities']
+},
+{
+  id:'d2',date:'Apr 19',day:'Sat',weekNum:1,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.2 – Contingent Contracts',note:'Features, rules (Sec 31-36) – 1 MCQ usually, 45 mins enough',mins:45},
+    {time:'09:45',sub:'law',title:'Ch.2 – Quasi Contracts',note:'Types Sec 68-72, factual chapter – 45 mins',mins:45},
+    {time:'10:30',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'10:50',sub:'law',title:'Ch.2 – Performance of Contract',note:'Who must perform, time & place, joint promisors, tender',mins:75},
+    {time:'12:05',sub:'brk',title:'Break',note:'',mins:30},
+    {time:'12:35',sub:'law',title:'Ch.2 – Discharge of Contract',note:'All 6 modes – performance, agreement, breach, impossibility, lapse, operation of law. Heavy.',mins:90},
+    {time:'14:05',sub:'brk',title:'Lunch',note:'',mins:60},
+    {time:'15:05',sub:'law',title:'Ch.2 – Breach & Remedies for Breach',note:'Actual vs Anticipatory breach, types of damages, Hadley v Baxendale rule',mins:75},
+    {time:'16:20',sub:'brk',title:'Break',note:'',mins:10},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'law',title:'Ch.2 Full Revision Scan',note:'Scan all of Ch.2 with notes – flag weak spots',mins:60},
+    {time:'18:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:15',sub:'qa', title:'Ch.2 – Equations (Linear & Quadratic)',note:'Factorisation, formula, nature of roots – 75 mins',mins:75},
+    {time:'19:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:15',sub:'qa', title:'Ch.3 – Linear Inequalities',note:'Graphical method, number line – easier, 60 mins',mins:60},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Contingent contract features & rules','Quasi-contract types Sec 68-72','Performance – time, place, joint promisors','Tender of performance','Discharge by agreement – novation etc','Discharge by impossibility – Sec 56','Anticipatory breach definition','Damages – ordinary, special, nominal','Hadley v Baxendale rule','Equations – factorisation method','Quadratic formula & discriminant','Nature of roots','Linear inequalities – graphical method']
+},
+{
+  id:'d3',date:'Apr 20',day:'Sun',weekNum:1,isWeekend:true,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Special Contracts – Indemnity',note:'Definition, rights of indemnity holder (Sec 124-125)',mins:45},
+    {time:'09:45',sub:'law',title:'Special Contracts – Guarantee',note:'Features, types, rights & discharge of surety – 90 mins, heavy',mins:90},
+    {time:'11:15',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'11:35',sub:'law',title:'Special Contracts – Bailment',note:'Types, duties of bailor & bailee, finder of goods',mins:75},
+    {time:'12:50',sub:'brk',title:'Lunch',note:'',mins:60},
+    {time:'13:50',sub:'law',title:'Special Contracts – Pledge',note:'Rights of pawnor & pawnee, pawnee right of sale – 45 mins',mins:45},
+    {time:'14:35',sub:'law',title:'Special Contracts – Contract of Agency',note:'Creation modes, types of agents, duties, sub-agent, termination – 90 mins, heavy',mins:90},
+    {time:'16:05',sub:'brk',title:'Break',note:'',mins:30},
+    {time:'16:35',sub:'qa', title:'Ch.4 – Mathematics of Finance: SI & CI',note:'SI, CI formulas, effective rate – 20 problems',mins:75},
+    {time:'17:50',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'18:10',sub:'qa', title:'Ch.4 – Annuity (Present & Future Value)',note:'Annuity due vs ordinary, PV & FV formulas – 75 mins, formula-heavy',mins:75},
+    {time:'19:25',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:10',sub:'law',title:'Special Contracts – Quick revision of all 5',note:'One pass through all – 60 mins to consolidate',mins:60},
+    {time:'21:10',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Indemnity – rights of holder','Guarantee features vs Indemnity','Continuing guarantee','Surety – rights & discharge','Bailment classification','Duties of bailee','Finder of goods – rights','Pledge – pawnee right of sale','Agency – creation modes','Types of agents','Agent duties & liabilities','Termination of agency','SI & CI formulas','Effective annual rate','Annuity – ordinary vs due','PV and FV of annuity']
+},
+{
+  id:'d4',date:'Apr 21',day:'Mon',weekNum:1,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.3 – Basics of Contract of Sale',note:'Goods definition, types, Sale vs Agreement to Sell',mins:60},
+    {time:'10:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:15',sub:'law',title:'Ch.3 – Conditions and Warranties',note:'Express vs Implied, Caveat Emptor – important for MCQs',mins:75},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'11:50',sub:'eco',title:'Ch.1 – Nature & Scope of Business Economics',note:'Easy chapter – orientation read only, 45 mins',mins:45},
+    {time:'12:35',sub:'brk',title:'Lunch',note:'',mins:75},
+    {time:'13:50',sub:'law',title:'Ch.3 – Transfer of Property in Goods',note:'Rules for specific, unascertained goods – case-based',mins:75},
+    {time:'15:05',sub:'law',title:'Ch.3 – Delivery + Unpaid Seller + Auction Sale',note:'Lien, stoppage in transit, right of resale',mins:75},
+    {time:'16:20',sub:'brk',title:'Break',note:'',mins:10},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'qa', title:'Ch.5 – Permutations',note:'nPr, circular permutations, word arrangements – 90 mins',mins:90},
+    {time:'18:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:15',sub:'qa', title:'Ch.5 – Combinations',note:'nCr, selection problems, at least/at most – 75 mins',mins:75},
+    {time:'20:30',sub:'law',title:'SGA – 15 MCQ Quick Drill',note:'Timed practice to lock in Ch.3',mins:30},
+    {time:'21:00',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Goods definition & types','Sale vs Agreement to Sell','Implied conditions – title, description, sample','Implied warranties','Caveat Emptor & exceptions','Transfer of property – specific goods','Transfer – unascertained goods rules','Rules of delivery','Unpaid seller – lien','Stoppage in transit','Right of resale','Auction sale rules','nPr formula & circular perms','Word arrangements with restrictions','nCr formula','Selection problems – at least/most']
+},
+{
+  id:'d5',date:'Apr 22',day:'Tue',weekNum:1,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.4 – Indian Partnership Act: Basics',note:'Definition, nature, test of partnership (profit sharing)',mins:60},
+    {time:'10:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:15',sub:'law',title:'Ch.4 – Rights & Duties of Partners',note:'Mutual rights, duty of good faith, no remuneration rule – 75 mins',mins:75},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'11:50',sub:'law',title:'Ch.4 – Types of Partner + Firm Registration',note:'Active, Sleeping, Minor partner + registration effects',mins:75},
+    {time:'13:05',sub:'brk',title:'Lunch',note:'',mins:75},
+    {time:'14:20',sub:'law',title:'Ch.4 – Reconstitution of Firm',note:'Admission, Retirement, Death, Insolvency – 90 mins, heavy',mins:90},
+    {time:'15:50',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'law',title:'Ch.4 – Dissolution of Firm',note:'Modes: compulsory, by notice, by court – 60 mins',mins:60},
+    {time:'18:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:15',sub:'qa', title:'Ch.6 – Sequences & Series: AP',note:'nth term, sum, AM – 20 problems, 75 mins',mins:75},
+    {time:'19:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:15',sub:'qa', title:'Ch.6 – GP + Special Series',note:'nth term, sum, infinite GP, HP – 75 mins',mins:75},
+    {time:'21:30',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Partnership definition','Test of partnership – sharing profits','Rights of partners – 9 rights','Duties of partners','Active vs Sleeping vs Nominal partner','Minor as partner','Registration effects (registered vs unregistered)','Admission – incoming partner','Retirement – outgoing partner rights','Death of a partner','Insolvency effects on firm','Dissolution by agreement','Compulsory dissolution','Court ordered dissolution','AP – nth term, Sn, AM','GP – nth term, Sn, S∞','HP basics']
+},
+{
+  id:'d6',date:'Apr 23',day:'Wed',weekNum:1,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.5 – LLP Act: Features & Incorporation',note:'LLP vs Partnership vs Company, designated partners, incorporation steps',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'eco',title:'Ch.2 – Theory of Demand',note:'Law of demand, determinants, types of elasticity – go deeper, 90 mins',mins:90},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'12:25',sub:'eco',title:'Ch.2 – Theory of Supply + Equilibrium',note:'Supply curve, determinants, PES, market equilibrium, consumer surplus',mins:75},
+    {time:'13:40',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'14:45',sub:'law',title:'Ch.5 LLP – Detailed features + Winding up',note:'Partners rights, contributions, conversion, winding up',mins:60},
+    {time:'15:45',sub:'law',title:'Ch.4 + Ch.5 MCQ Drill – 25 Qs timed',note:'Partnership + LLP combined timed practice',mins:45},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'qa', title:'Ch.7 – Sets, Relations & Functions',note:'Set operations, Venn diagrams, types of relations – 75 mins',mins:75},
+    {time:'18:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:30',sub:'acc',title:'Ch.1,2 – Theoretical Framework + Accounting Process',note:'You know this well – 75 min rapid revision, no deep dive',mins:75},
+    {time:'19:45',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:30',sub:'qa', title:'Ch.7 – Functions: types & problems',note:'One-one, onto, bijective, composite – 45 mins',mins:45},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['LLP definition & features','LLP vs Partnership differences','Designated partners – roles','LLP incorporation steps','LLP winding up','Demand – law & exceptions','Determinants of demand','PED – types & measurement','Supply – law & determinants','PES calculation','Market equilibrium analysis','Consumer & Producer surplus','Set operations – union, intersection, difference','Venn diagram problems (2 & 3 sets)','Types of relations','Types of functions – one-one, onto, bijective','Accounting concepts & conventions recap']
+},
+{
+  id:'d7',date:'Apr 24',day:'Thu',weekNum:1,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.6 – Companies Act: Basics & Corporate Veil',note:'Company definition, features, lifting of corporate veil',mins:60},
+    {time:'10:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:15',sub:'law',title:'Ch.6 – Types of Companies',note:'Public, Private, OPC, Section 8, Govt Company – all types + distinctions',mins:75},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'11:50',sub:'law',title:'Ch.6 – Incorporation Process',note:'Steps: name approval, DIN, DSC, MCA filing, Certificate of Incorporation',mins:60},
+    {time:'12:50',sub:'brk',title:'Lunch',note:'',mins:75},
+    {time:'14:05',sub:'law',title:'Ch.6 – MOA & AOA',note:'MOA – 6 clauses, entrenchment, AOA – binding effect as contract',mins:75},
+    {time:'15:20',sub:'law',title:'Ch.6 – Share Capital + Doctrines',note:'Types of share capital, Doctrine of Indoor Mgmt, Ultra Vires, Constructive Notice',mins:75},
+    {time:'16:35',sub:'brk',title:'Break + get home',note:'',mins:25},
+    {time:'17:00',sub:'qa', title:'Ch.9,10 – Number Series + Coding & Decoding',note:'Pattern recognition – easy scoring, 60 mins',mins:60},
+    {time:'18:00',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'18:20',sub:'qa', title:'Ch.10 – Odd One Out + Direction Sense',note:'Logic-based, 50 mins – easy marks',mins:50},
+    {time:'19:10',sub:'brk',title:'Dinner',note:'',mins:50},
+    {time:'20:00',sub:'acc',title:'Ch.3 – Bank Reconciliation Statement',note:'BRS format, timing differences, errors – 75 mins',mins:75},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Company definition & features','Corporate veil & lifting','Public vs Private company differences','OPC – One Person Company','Section 8 Company','Incorporation step by step','MOA – 6 clauses explained','AOA – binding as contract','Types of share capital','Ultra Vires doctrine','Doctrine of Constructive Notice','Doctrine of Indoor Management','Number series patterns','Coding-decoding types','Direction sense (L/R turns)','BRS format','Causes of difference – timing & errors']
+},
+{
+  id:'d8',date:'Apr 25',day:'Fri',weekNum:2,weekTitle:'Law Completion + QA Stats + Eco',
+  sessions:[
+    {time:'09:00',sub:'law',title:'Ch.7 – NI Act: Basics + Promissory Note + Cheque',note:'Definitions, specimen, differences – PN vs Cheque vs BoE',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'law',title:'Ch.7 – Bill of Exchange + Types of Instruments',note:'Inland/Foreign, BoE features, ambiguous instruments',mins:60},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'11:55',sub:'law',title:'Ch.7 – Holder & Holder in Due Course',note:'HDC conditions – HIGH YIELD, 75 mins',mins:75},
+    {time:'13:10',sub:'brk',title:'Lunch',note:'',mins:75},
+    {time:'14:25',sub:'law',title:'Ch.7 – Negotiation + Types of Endorsement',note:'Blank, Special, Restrictive, Conditional, Partial endorsements',mins:75},
+    {time:'15:40',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'law',title:'Ch.7 – Cheque Dishonour Sec 138 + Presentment',note:'Sec 138 conditions, defences – very commonly tested, 75 mins',mins:75},
+    {time:'18:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:30',sub:'qa', title:'Ch.11,12 – Seating Arrangements',note:'Linear & circular seating – practice based, 60 mins',mins:60},
+    {time:'19:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:15',sub:'qa', title:'Ch.12 – Blood Relations',note:'Family tree problems – 60 mins, easy marks',mins:60},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Promissory Note – features','Cheque – features & types','Bill of Exchange – features','Inland vs Foreign instrument','Holder – definition & rights','HDC – 5 conditions','Endorsement – types','Blank vs Special endorsement','Sec 138 – cheque dishonour conditions','Defences against Sec 138','Presentment for payment','Dishonour by non-payment','Seating – linear arrangements','Seating – circular arrangements','Blood relation – coded','Blood relation – family tree']
+},
+{
+  id:'d9',date:'Apr 26',day:'Sat',weekNum:2,
+  sessions:[
+    {time:'09:00',sub:'law',title:'Law Full Revision – Ch.1 to Ch.3',note:'Morning sprint – Contract Act + SGA',mins:120},
+    {time:'11:00',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'11:20',sub:'law',title:'Law Full Revision – Ch.4 to Ch.7',note:'Partnership + LLP + Companies + NI Act',mins:120},
+    {time:'13:20',sub:'brk',title:'Lunch',note:'',mins:70},
+    {time:'14:30',sub:'eco',title:'Ch.3 – Theory of Production',note:'TP, AP, MP, Law of Variable Proportions, Isoquants – 90 mins',mins:90},
+    {time:'16:00',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'16:20',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'16:50',sub:'eco',title:'Ch.3 – Theory of Cost',note:'TC, TVC, TFC, AC, AVC, MC – curves & relationships – 90 mins',mins:90},
+    {time:'18:20',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:05',sub:'qa', title:'Ch.13 – Statistical Description of Data',note:'Classification, tabulation, frequency distribution, diagrams – 75 mins',mins:75},
+    {time:'20:20',sub:'acc',title:'Ch.4,5 – Inventories + Depreciation',note:'FIFO/LIFO/WA + SLM/WDV – rapid revision, 75 mins',mins:75},
+    {time:'21:35',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Contract Act full revision Ch.1-3','SGA revision','Partnership + LLP revision','Companies Act + NI Act revision','TP, AP, MP relationships','Law of Variable Proportions – 3 stages','Returns to Scale','Isoquants & Isocosts','Short run cost curves','Long run cost curves','AC-MC relationship','Frequency distribution','Histogram & Ogive','FIFO, LIFO, Weighted Average','SLM vs WDV depreciation']
+},
+{
+  id:'d10',date:'Apr 27',day:'Sun',weekNum:2,isWeekend:true,
+  sessions:[
+    {time:'09:00',sub:'eco',title:'Ch.4 – Perfect Competition',note:'Features, price determination, shut-down point – 75 mins',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'eco',title:'Ch.4 – Monopoly + Monopolistic Competition',note:'Price discrimination, product differentiation – 75 mins',mins:75},
+    {time:'11:45',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'12:05',sub:'eco',title:'Ch.4 – Oligopoly + Price Leadership',note:'Features, kinked demand curve – 60 mins',mins:60},
+    {time:'13:05',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'14:10',sub:'eco',title:'Ch.5 – Business Cycles',note:'Phases, theories – short chapter, 60 mins',mins:60},
+    {time:'15:10',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'15:30',sub:'qa', title:'Ch.14 – Measures of Central Tendency',note:'AM, GM, HM, Median, Mode, Quartiles – 90 mins, formula-heavy',mins:90},
+    {time:'17:00',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'17:20',sub:'acc',title:'Ch.6 – Bills of Exchange & Promissory Notes',note:'Accounting treatment – due date, discounting, dishonour – 75 mins',mins:75},
+    {time:'18:35',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:20',sub:'law',title:'Law MCQ Drill – Ch.2 Targeted (40 Qs)',note:'Indian Contract Act MCQs timed at 60 mins',mins:60},
+    {time:'20:20',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'20:35',sub:'acc',title:'Ch.7 – Final Accounts of Sole Proprietor',note:'Trading A/c, P&L, Balance Sheet with adjustments – 75 mins',mins:75},
+    {time:'21:50',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Perfect competition features','Shut-down vs break-even point','Monopoly – price & output decision','Price discrimination types','Monopolistic – excess capacity','Oligopoly features','Kinked demand curve','Business cycle phases','Boom, Recession, Depression, Recovery','Theories of business cycles','AM – direct, assumed mean','GM & HM formulas','Median – individual, grouped','Mode – grouped data','Quartiles & Percentiles','Bills accounting – journal entries','Accommodation bills','Dishonour of bill entries','Trading A/c format','P&L – all adjustments','Balance Sheet classification']
+},
+{
+  id:'d11',date:'Apr 28',day:'Mon',weekNum:2,
+  sessions:[
+    {time:'09:00',sub:'eco',title:'Ch.6 – National Income: Concepts',note:'GDP, GNP, NNP, NI, PI, DPI – all 6 concepts + formulas, 90 mins',mins:90},
+    {time:'10:30',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:45',sub:'eco',title:'Ch.6 – Methods of Measuring NI',note:'Product, Income, Expenditure methods – deep dive',mins:75},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'12:25',sub:'eco',title:'Ch.6 – Multiplier + Keynesian Model',note:'MPC, MPS, multiplier effect – slightly harder, 75 mins',mins:75},
+    {time:'13:40',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'14:45',sub:'eco',title:'Ch.7 – Public Finance',note:'Taxes (direct/indirect), budget deficit types, fiscal policy – 75 mins',mins:75},
+    {time:'16:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'qa', title:'Ch.15 – Probability: Classical & Empirical',note:'Basic probability, addition theorem – 75 mins',mins:75},
+    {time:'18:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:30',sub:'acc',title:'Ch.8 – Not-for-Profit Organisation Accounts',note:'Receipt & Payment, Income & Expenditure, Balance Sheet – 90 mins',mins:90},
+    {time:'20:00',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:45',sub:'qa', title:'Ch.15 – Conditional Probability & Bayes Theorem',note:'Harder – 60 mins',mins:60},
+    {time:'21:45',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['GDP at FC vs MP','GNP, NNP formulas','Personal income & DPI','Product method – value added','Income method – factor payments','Expenditure method – C+I+G+NX','MPC + MPS = 1','Keynesian multiplier','Types of taxes – direct & indirect','Types of budget deficits','Fiscal policy instruments','Basic probability terms','Addition theorem','Mutually exclusive events','Receipt & Payment A/c format','Income & Expenditure adjustments','Conditional probability formula','Bayes theorem problems']
+},
+{
+  id:'d12',date:'Apr 29',day:'Tue',weekNum:2,
+  sessions:[
+    {time:'09:00',sub:'eco',title:'Ch.8 – Money Market: RBI Instruments',note:'Functions of money, CRR, SLR, Repo, Reverse Repo, Bank Rate – 75 mins',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'eco',title:'Ch.8 – Money Market Instruments',note:'T-bills, Commercial Paper, CD, Call Money – definitions, 60 mins',mins:60},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'11:55',sub:'eco',title:'Ch.9 – International Trade: Advantages + BoP',note:'Absolute vs Comparative advantage, BoP – Current & Capital accounts',mins:75},
+    {time:'13:10',sub:'brk',title:'Lunch',note:'',mins:75},
+    {time:'14:25',sub:'eco',title:'Ch.9 – Trade Policy + Exchange Rate',note:'Tariff, quota, FTA, fixed vs floating exchange rate – 60 mins',mins:60},
+    {time:'15:25',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'qa', title:'Ch.16 – Binomial Distribution',note:'Mean, variance, problems – 75 mins, formula-heavy',mins:75},
+    {time:'18:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:30',sub:'qa', title:'Ch.16 – Poisson + Normal Distribution',note:'Poisson approximation, Normal properties, Z-table – 75 mins',mins:75},
+    {time:'19:45',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'20:30',sub:'acc',title:'Ch.9 – Accounts from Incomplete Records',note:'Statement of Affairs, net worth method – 75 mins',mins:75},
+    {time:'21:45',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Functions of money','CRR, SLR, Repo, Reverse Repo','Bank Rate vs MSF','T-bills, CPs, CDs','Call money market','Absolute vs Comparative advantage','BoP – Current account components','BoP – Capital account components','Tariff vs Quota effects','Fixed vs Floating exchange rate','Binomial – conditions & formula','Binomial mean & variance','Poisson approximation condition','Normal distribution properties','68-95-99.7 rule','Statement of Affairs','Net worth method','Single entry to double entry']
+},
+{
+  id:'d13',date:'Apr 30',day:'Wed',weekNum:2,
+  sessions:[
+    {time:'09:00',sub:'eco',title:'Ch.10 – Indian Economy: Pre-reform + Plans',note:'Agriculture, industry structure, Five Year Plans – 90 mins',mins:90},
+    {time:'10:30',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:45',sub:'eco',title:'Ch.10 – LPG Reforms 1991 + Sectors',note:'Liberalisation, Privatisation, Globalisation effects – 75 mins',mins:75},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'12:25',sub:'eco',title:'Ch.10 – Unemployment + Poverty + Schemes',note:'Types of unemployment, BPL, MNREGA, flagship schemes – 75 mins',mins:75},
+    {time:'13:40',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'14:45',sub:'qa', title:'Ch.17 – Correlation',note:'Karl Pearson r, Spearman rank – formulas + 10 problems, 75 mins',mins:75},
+    {time:'16:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'qa', title:'Ch.17 – Regression',note:'Regression coefficients, lines of regression, estimation – 75 mins',mins:75},
+    {time:'18:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'18:30',sub:'law',title:'Law MCQ Drill – Ch.4+Ch.6 (45 Qs timed)',note:'Partnership + Companies Act – 70 mins',mins:70},
+    {time:'19:40',sub:'brk',title:'Dinner',note:'',mins:50},
+    {time:'20:30',sub:'acc',title:'Ch.10 – Partnership Accounts: Admission',note:'Goodwill methods, revaluation, new ratio – 75 mins',mins:75},
+    {time:'21:45',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['India – mixed economy features','Five Year Plans overview','LPG reforms – causes & effects','Liberalisation measures','Privatisation arguments','Globalisation indicators','Types of unemployment','Poverty – absolute vs relative','MNREGA & other schemes','Karl Pearson r – formula & properties','Rank correlation – Spearman formula','Regression coefficients bxy, byx','Lines of regression intersection point','Estimation using regression','Admission – goodwill treatment','Revaluation account entries','New profit sharing ratio','Sacrificing ratio']
+},
+{
+  id:'d14',date:'May 1',day:'Thu',weekNum:2,
+  sessions:[
+    {time:'09:00',sub:'qa', title:'Ch.18 – Index Numbers: Laspeyre & Paasche',note:'Price & quantity index formulas, problems – 75 mins',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'qa', title:'Ch.18 – Fisher Ideal + Consumer Price Index',note:'Fisher = GM of L & P, CPI uses, Deflation – 60 mins',mins:60},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'11:55',sub:'eco',title:'Eco Revision – Ch.1 to Ch.5',note:'Skim notes, focus on MCQ-prone definitions – 90 mins',mins:90},
+    {time:'13:25',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'14:30',sub:'eco',title:'Eco Revision – Ch.6 to Ch.10',note:'NI methods + Indian Economy = highest yield for you – 90 mins',mins:90},
+    {time:'16:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'acc',title:'Ch.10 – Partnership: Retirement + Death',note:'Outgoing partner, executor account – 90 mins',mins:90},
+    {time:'18:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:15',sub:'acc',title:'Ch.11 – Company Accounts: Share Issue',note:'Issue at par/premium/discount, forfeiture, reissue – 75 mins',mins:75},
+    {time:'20:30',sub:'law',title:'Law MCQ Drill – NI Act Ch.7 (30 Qs)',note:'NI Act focused timed drill – 45 mins',mins:45},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Laspeyre price index','Paasche price index','Fisher Ideal Index formula','CPI – uses & construction','Eco Ch.1-5 revision','Eco Ch.6-10 revision – NI & Indian Eco','Retirement – gaining ratio','Revaluation on retirement','Executor account on death of partner','Issue of shares at premium (Sec 52)','Issue at discount – conditions','Forfeiture of shares journal entry','Reissue of forfeited shares']
+},
+{
+  id:'d15',date:'May 2',day:'Fri',weekNum:3,weekTitle:'Final Revision + Mock Tests',
+  sessions:[
+    {time:'09:00',sub:'acc', title:'Ch.11 – Company Accounts: Debentures',note:'Issue, interest, redemption – complete Company Accounts chapter, 75 mins',mins:75},
+    {time:'10:15',sub:'brk', title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'rev', title:'QA Revision – Ch.1 to Ch.7 Formula Recap',note:'Write all formulas on one sheet, 75 mins',mins:75},
+    {time:'11:45',sub:'brk', title:'Break',note:'',mins:20},
+    {time:'12:05',sub:'rev', title:'QA Revision – Stats Ch.13-18 Formula Sheet',note:'Correlation, Regression, Index, Distributions – 75 mins',mins:75},
+    {time:'13:20',sub:'brk', title:'Lunch',note:'',mins:70},
+    {time:'14:30',sub:'rev', title:'Eco Revision – Micro Chapters (Ch.2,3,4)',note:'Demand, Supply, Production, Cost, Markets – MCQ focus, 75 mins',mins:75},
+    {time:'15:45',sub:'brk', title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk', title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'rev', title:'Eco Revision – Macro Chapters (Ch.6,7,8,9,10)',note:'NI, Public Finance, Money Market, Trade, Indian Eco – 90 mins',mins:90},
+    {time:'18:30',sub:'brk', title:'Dinner',note:'',mins:45},
+    {time:'19:15',sub:'law', title:'Law MCQ Drill – Ch.2+Ch.3 (50 Qs timed)',note:'Hardest chapters – 75 min timed test, self-mark',mins:75},
+    {time:'20:30',sub:'brk', title:'Break',note:'',mins:15},
+    {time:'20:45',sub:'rev', title:'Accounts – Partnership + Company A/c revision',note:'Only entries and formats – no theory, 60 mins',mins:60},
+    {time:'21:45',sub:'brk', title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Debenture types','Debenture journal entries','QA formulas Ch.1-7 consolidated','Stats formulas Ch.13-18 consolidated','Micro eco revision MCQ focus','Demand-Supply-Production problems','Markets MCQ practice','Macro eco revision','NI + Public Finance + Money Market','Indian Economy key points','Contract Act + SGA MCQ test','Partnership + Company accounts entries']
+},
+{
+  id:'d16',date:'May 3',day:'Sat',weekNum:3,isWeekend:true,
+  sessions:[
+    {time:'09:00',sub:'rev',title:'FULL LAW MOCK TEST – All 7 Chapters (60 Qs)',note:'Exam simulation – 90 mins timed, no peeking',mins:90},
+    {time:'10:30',sub:'brk',title:'Break + Self-evaluation',note:'Mark your test, note all wrong answers',mins:30},
+    {time:'11:00',sub:'rev',title:'Law Mock – Error Review & Weak Spot Notes',note:'Go through wrong answers in detail – 60 mins',mins:60},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:30},
+    {time:'12:30',sub:'rev',title:'QA Mock – Maths Sections (30 Qs, 60 mins)',note:'Finance Math, P&C, Sequences – timed',mins:60},
+    {time:'13:30',sub:'brk',title:'Lunch',note:'',mins:60},
+    {time:'14:30',sub:'rev',title:'QA Mock – Stats Sections (25 Qs, 50 mins)',note:'Probability, Distributions, Correlation, Index',mins:50},
+    {time:'15:20',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'15:40',sub:'rev',title:'QA Mock – Reasoning Section (20 Qs, 30 mins)',note:'Number series, seating, blood relations',mins:30},
+    {time:'16:10',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'16:30',sub:'rev',title:'Accounts – Ch.1 to Ch.9 Rapid Revision',note:'Skim notes + 5 Qs per chapter only – 90 mins',mins:90},
+    {time:'18:00',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'18:45',sub:'rev',title:'Eco Mock – 30 MCQs timed (50 mins)',note:'Mixed topics, exam-style',mins:50},
+    {time:'19:35',sub:'rev',title:'Eco Mock – Error Review',note:'Go through wrong answers – 40 mins',mins:40},
+    {time:'20:15',sub:'rev',title:'Law – Contract Act targeted weak spots',note:'Whatever you got wrong in morning mock – 60 mins',mins:60},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Law full mock test attempt','Law error analysis','QA maths mock test','QA stats mock test','QA reasoning mock test','Accounts rapid revision Ch.1-9','Eco mock test','Eco error analysis','Contract Act weak spots from mock']
+},
+{
+  id:'d17',date:'May 4',day:'Sun',weekNum:3,isWeekend:true,
+  sessions:[
+    {time:'09:00',sub:'rev',title:'FULL ECO MOCK TEST – All 10 Chapters (50 Qs)',note:'90 mins timed – exam simulation',mins:90},
+    {time:'10:30',sub:'brk',title:'Break + Self-evaluation',note:'',mins:30},
+    {time:'11:00',sub:'rev',title:'Eco Mock Review – Macro weak spots',note:'National Income + Indian Economy are your gap areas – 60 mins',mins:60},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:30},
+    {time:'12:30',sub:'rev',title:'FULL ACCOUNTS MOCK TEST (45 Qs, 75 mins)',note:'All chapters timed',mins:75},
+    {time:'13:45',sub:'brk',title:'Lunch',note:'',mins:60},
+    {time:'14:45',sub:'rev',title:'Accounts Mock Review',note:'30 mins – check entries, formats',mins:30},
+    {time:'15:15',sub:'rev',title:'Law – NI Act + SGA Deep Revision',note:'These 2 chapters need more attention – 75 mins',mins:75},
+    {time:'16:30',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'16:50',sub:'rev',title:'QA – All Stats formulas one more pass',note:'Write Correlation, Regression, Index, Distributions on one page – 60 mins',mins:60},
+    {time:'17:50',sub:'brk',title:'Dinner',note:'',mins:50},
+    {time:'18:40',sub:'rev',title:'Law – Companies Act targeted revision',note:'Types of companies + MOA/AOA + Doctrines – 60 mins',mins:60},
+    {time:'19:40',sub:'rev',title:'Eco – Indian Economy quick cramming',note:'MNREGA, LPG, BPL facts – 45 mins',mins:45},
+    {time:'20:25',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'20:45',sub:'rev',title:'QA – Finance Math + P&C last revision',note:'45 mins',mins:45},
+    {time:'21:30',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Eco full mock attempt','Eco macro weak spots','Accounts full mock attempt','Accounts error analysis','NI Act deep revision','SGA detailed revision','Stats formula consolidation','Companies Act targeted','Indian Economy facts','Finance Math revision','P&C revision']
+},
+{
+  id:'d18',date:'May 5',day:'Mon',weekNum:3,
+  sessions:[
+    {time:'09:00',sub:'rev',title:'Law – Contract Act Part 1 (Ch.2 first half)',note:'Offer, Acceptance, Consideration, Free Consent – 75 mins',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'rev',title:'Law – Contract Act Part 2 + Special Contracts',note:'Discharge, Breach, Indemnity, Guarantee, Agency – 90 mins',mins:90},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'12:25',sub:'rev',title:'QA – Sequence + Sets + Finance Math (problems only)',note:'Solve 8-10 problems per topic, no theory re-reading – 75 mins',mins:75},
+    {time:'13:40',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'14:45',sub:'rev',title:'Eco – NI Determination + Public Finance',note:'Multiplier, deficit types, fiscal policy details – 75 mins',mins:75},
+    {time:'16:00',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'rev',title:'Accounts – Partnership accounts full revision',note:'Admission, retirement, death, dissolution – 90 mins',mins:90},
+    {time:'18:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:15',sub:'rev',title:'Law – 40 MCQ Mixed Mock (Ch.2 + Ch.4 + Ch.6)',note:'Hardest 3 chapters – timed 60 mins',mins:60},
+    {time:'20:15',sub:'rev',title:'Eco – Money Market + International Trade',note:'RBI instruments + BoP + exchange rate – 60 mins',mins:60},
+    {time:'21:15',sub:'brk',title:'Done for the day',note:'',mins:0},
+  ],
+  topics:['Offer & Acceptance revision','Consideration & Consent revision','Special contracts all 5','Discharge & Breach revision','AP/GP/Sets problem sets','Finance Math problem practice','Multiplier & Keynesian model','Budget deficit types','Fiscal policy revision','Partnership all scenarios','Mixed law mock Ch.2+4+6','Money market instruments','BoP & exchange rate']
+},
+{
+  id:'d19',date:'May 6',day:'Tue',weekNum:3,
+  sessions:[
+    {time:'09:00',sub:'rev',title:'Law – Partnership + LLP + Companies revision',note:'All 3 chapters together – 90 mins',mins:90},
+    {time:'10:30',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:45',sub:'rev',title:'QA – Probability + Distributions problems',note:'Solve 15 problems from both topics – 75 mins',mins:75},
+    {time:'12:00',sub:'brk',title:'Break',note:'',mins:25},
+    {time:'12:25',sub:'rev',title:'QA – Correlation + Regression + Index Numbers',note:'10 problems each, focus on formulas – 90 mins',mins:90},
+    {time:'13:55',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'15:00',sub:'rev',title:'Eco – Micro complete revision (Ch.2,3,4)',note:'Demand, Cost, Markets – tight 75 min pass',mins:75},
+    {time:'16:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'rev',title:'4-Subject Mini Mock – 20 Qs each (90 mins)',note:'Simulate real exam feel – all 4 subjects mixed',mins:90},
+    {time:'18:30',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:15',sub:'rev',title:'Mini Mock Error Review – all subjects',note:'Note weak areas – 45 mins',mins:45},
+    {time:'20:00',sub:'rev',title:'Accounts – Company accounts + BRS revision',note:'Share forfeiture, debentures, BRS – 60 mins',mins:60},
+    {time:'21:00',sub:'brk',title:'Done for the day – rest well',note:'',mins:0},
+  ],
+  topics:['Partnership Act revision','LLP Act revision','Companies Act revision','Probability problem sets','Binomial & Normal problems','Correlation problem sets','Regression problems','Index number problems','Micro economics full pass','4-subject mini mock test','Mock error analysis','Share forfeiture revision','Debentures revision']
+},
+{
+  id:'d20',date:'May 7',day:'Wed',weekNum:3,
+  sessions:[
+    {time:'09:00',sub:'rev',title:'Law – NI Act full revision',note:'All definitions + Sec 138 conditions – 75 mins',mins:75},
+    {time:'10:15',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'10:30',sub:'rev',title:'Law – SGA full revision',note:'Conditions, Transfer of Property, Unpaid Seller – 60 mins',mins:60},
+    {time:'11:30',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'11:50',sub:'rev',title:'QA – Reasoning: Seating + Blood + Directions',note:'20 problems mixed – easy scoring section, 60 mins',mins:60},
+    {time:'12:50',sub:'brk',title:'Lunch',note:'',mins:65},
+    {time:'13:55',sub:'rev',title:'All subjects – Formulae Sheets Review',note:'No reading. Just review formula sheets you made – 60 mins',mins:60},
+    {time:'14:55',sub:'rev',title:'Eco – Business Cycles + Ch.1',note:'Small chapters, 45 mins',mins:45},
+    {time:'15:40',sub:'brk',title:'Break',note:'',mins:15},
+    {time:'16:30',sub:'brk',title:'Get home + break',note:'',mins:30},
+    {time:'17:00',sub:'rev',title:'Law – 30 MCQ Final Drill (hardest topics)',note:'Special contracts + Companies doctrines – 45 mins',mins:45},
+    {time:'17:45',sub:'rev',title:'Accounts – Final accounts + NFP revision',note:'Formats + adjustments – 60 mins',mins:60},
+    {time:'18:45',sub:'brk',title:'Dinner',note:'',mins:45},
+    {time:'19:30',sub:'rev',title:'Eco – Indian Economy final 30 mins',note:'Key facts, figures, schemes only',mins:30},
+    {time:'20:00',sub:'rev',title:'QA – All formulas last read',note:'30 mins – just the formula sheet',mins:30},
+    {time:'20:30',sub:'brk',title:'Stop studying. Rest.',note:'Sleep by 10 PM tonight. Tomorrow is easy day.',mins:0},
+  ],
+  topics:['NI Act all definitions','Sec 138 – cheque dishonour conditions','SGA conditions & warranties','Transfer of property revision','Unpaid seller revision','Reasoning problems','Formula sheets all subjects','Business cycles revision','Special contracts MCQ drill','Companies doctrines drill','Final accounts formats','NFP account formats','Indian Economy key facts','QA formula final read']
+},
+{
+  id:'d21',date:'May 8',day:'Thu',weekNum:3,
+  sessions:[
+    {time:'09:00',sub:'rev',title:'Light skim – Law key definitions only',note:'30 mins max. No new topics today.',mins:30},
+    {time:'09:30',sub:'rev',title:'Light skim – QA formula sheet only',note:'30 mins. Just refresh memory.',mins:30},
+    {time:'10:00',sub:'brk',title:'Break',note:'',mins:20},
+    {time:'10:20',sub:'rev',title:'Light skim – Eco key terms & NI formulas',note:'30 mins max.',mins:30},
+    {time:'10:50',sub:'rev',title:'Light skim – Accounts formats only',note:'20 mins. Just headings and structures.',mins:20},
+    {time:'11:10',sub:'brk',title:'You are done. Rest now.',note:'Walk, eat well, sleep early. Prep is complete.',mins:0},
+  ],
+  topics:['Law key definitions skim','QA formula sheet final','Eco key terms skim','Accounts formats skim','Rest and mental preparation']
+}
+];
+
+const subjectColor = {
+  law:'var(--law)', qa:'var(--qa)', eco:'var(--eco)',
+  acc:'var(--acc)', rev:'var(--rev)', brk:'var(--border2)'
+};
+const subjectColorLight = {
+  law:'var(--law-light)', qa:'var(--qa-light)', eco:'var(--eco-light)',
+  acc:'var(--acc-light)', rev:'var(--rev-light)', brk:'var(--surface2)'
+};
+const subjectLabel = {law:'Law',qa:'Maths',eco:'Eco',acc:'Acc',rev:'Revision',brk:''};
+
+function groupWeeks() {
+  const map = {};
+  DAYS.forEach(d => {
+    if (!map[d.weekNum]) map[d.weekNum] = {weekNum:d.weekNum,weekTitle:'',days:[]};
+    if (d.weekTitle) map[d.weekNum].weekTitle = d.weekTitle;
+    map[d.weekNum].days.push(d);
+  });
+  return Object.values(map);
+}
+
+function renderSidebar() {
+  const sb = document.getElementById('sidebar');
+  let html = '';
+  groupWeeks().forEach(w => {
+    html += `<div class="sb-section">Week ${w.weekNum}</div>`;
+    w.days.forEach(d => {
+      const subs = [...new Set(d.sessions.filter(s=>s.sub!=='brk').map(s=>s.sub))];
+      const dots = subs.map(s=>`<span class="sb-dot" style="background:${subjectColor[s]}"></span>`).join('');
+      html += `<div class="sb-day" id="sb-${d.id}" onclick="gotoDay('${d.id}')">
+        <span>${d.date} &middot; ${d.day}</span><span class="sb-dots">${dots}</span>
+      </div>`;
+    });
+  });
+  sb.innerHTML = html;
+}
+
+function gotoDay(id) {
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderContent() {
+  const c = document.getElementById('content');
+  let html = '';
+  groupWeeks().forEach(w => {
+    html += `<div class="week-block"><div class="week-header"><span class="week-num">Week ${w.weekNum}</span><span class="week-title">${w.weekTitle}</span></div><div class="days-grid">`;
+    w.days.forEach(d => {
+      const subs = [...new Set(d.sessions.filter(s=>s.sub!=='brk').map(s=>s.sub))];
+      const chips = subs.map(s=>`<span class="chip chip-${s}">${subjectLabel[s]}</span>`).join('');
+      let isDone = false; try { isDone = localStorage.getItem('done-'+d.id)==='1'; } catch(e){}
+
+      // Parse date for block display
+      const parts = d.date.split(' ');
+      const dateNum = parts[1] || parts[0];
+      const dateMonth = parts[0];
+
+      // Build timeline
+      let tl = '<div class="timeline">';
+      d.sessions.forEach((s,i) => {
+        const isBrk = s.sub === 'brk';
+        const col = subjectColor[s.sub];
+        const lineCol = i === d.sessions.length-1 ? 'transparent' : (isBrk ? 'var(--border)' : col);
+        const durationTag = (!isBrk && s.mins >= 30) ? `<span class="tl-duration" style="background:${subjectColorLight[s.sub]};color:${col};border-color:${col}30">⏱ ${s.mins} min</span>` : '';
+        tl += `<div class="tl-item${isBrk?' tl-break':''}">
+          <div class="tl-left"><div class="tl-time">${s.time}</div></div>
+          <div class="tl-spine">
+            <div class="tl-dot" style="background:${isBrk?'var(--border2)':col};color:${isBrk?'var(--border2)':col}"></div>
+            <div class="tl-line" style="background:${lineCol}"></div>
+          </div>
+          <div class="tl-right">
+            <div class="tl-session"${!isBrk?` style="border-left-color:${col}"`:''}> 
+              <div class="tl-session-title">${s.title}</div>
+              ${s.note?`<div class="tl-session-note">${s.note}</div>`:''}
+              ${durationTag}
+            </div>
+          </div>
+        </div>`;
+      });
+      tl += '</div>';
+
+      const topicItems = (d.topics||[]).map((t,i) => {
+        const key = `${d.id}-t${i}`;
+        let ck = false; try { ck = localStorage.getItem(key)==='1'; } catch(e){}
+        return `<div class="topic-item${ck?' checked':''}" id="ti-${key}"><input type="checkbox" id="cb-${key}" onchange="toggleTopic('${key}')"${ck?' checked':''}><label for="cb-${key}">${t}</label></div>`;
+      }).join('');
+
+      html += `<div class="day-card${isDone?' done':''}" id="${d.id}">
+        <div class="day-header" onclick="toggleDay('${d.id}')">
+          <div class="day-date-block">
+            <div class="day-date">${dateNum}</div>
+            <div class="day-month">${dateMonth}</div>
+          </div>
+          <div>
+            <div class="day-name">${d.day}${d.isWeekend?' 🌤':''}${isDone?' ✓':''}</div>
+            <div class="day-sub-name">${subs.map(s=>subjectLabel[s]).join(' · ')}</div>
+          </div>
+          <div class="day-chips">${chips}</div>
+          <div class="day-toggle-btn" id="dtb-${d.id}" onclick="event.stopPropagation();markDone('${d.id}')" title="Mark day done">${isDone?'✓':'○'}</div>
+        </div>
+        <div class="day-body" id="body-${d.id}">
+          <div class="section-label">Session Timeline</div>
+          ${tl}
+          <div class="topics-list">
+            <div class="section-label">Topics Checklist</div>
+            ${topicItems}
+          </div>
+        </div>
+      </div>`;
+    });
+    html += '</div></div>';
+  });
+  c.innerHTML = html;
+}
+
+function toggleDay(id) { document.getElementById('body-'+id).classList.toggle('open'); }
+function markDone(id) {
+  const card = document.getElementById(id), btn = document.getElementById('dtb-'+id);
+  const isDone = card.classList.toggle('done');
+  btn.textContent = isDone ? '✓' : '○';
+  try { localStorage.setItem('done-'+id, isDone?'1':'0'); } catch(e){}
+}
+function toggleTopic(key) {
+  const cb = document.getElementById('cb-'+key), item = document.getElementById('ti-'+key);
+  try { localStorage.setItem(key, cb.checked?'1':'0'); } catch(e){}
+  item.classList.toggle('checked', cb.checked);
+  updateProgress();
+}
+function updateProgress() {
+  const all = document.querySelectorAll('.topic-item input[type=checkbox]');
+  let total=0, done=0;
+  all.forEach(cb => { total++; if(cb.checked) done++; });
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressText').textContent = `${done} of ${total} topics checked · ${pct}%`;
+}
+function openToday() {
+  const start = new Date(2025, 3, 18);
+  const diff = Math.floor((new Date()-start)/(864e5));
+  const idx = Math.max(0,Math.min(20,diff));
+  const id = DAYS[idx]?.id;
+  if (!id) return;
+  document.getElementById('body-'+id)?.classList.add('open');
+  setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),300);
+  document.getElementById('sb-'+id)?.classList.add('active');
+}
+
+renderSidebar(); renderContent(); updateProgress(); openToday();
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      document.querySelectorAll('.sb-day').forEach(el=>el.classList.remove('active'));
+      document.getElementById('sb-'+e.target.id)?.classList.add('active');
+    }
+  });
+},{threshold:0.2});
+DAYS.forEach(d => { const el=document.getElementById(d.id); if(el) obs.observe(el); });
+</script>
+</body>
+</html>
